@@ -12,4 +12,4 @@ class PQRSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PQR
-        fields = ['persona_soporte', 'estado', 'comentario']
+        fields = ['persona_soporte', 'estado', 'comentario', 'created']
