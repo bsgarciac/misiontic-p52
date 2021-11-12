@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import PersonaSoporteSerializer, PQRSerializer
-from .models import PersonaSoporte, PQR
+from .serializers import PersonaSoporteSerializer, PQRSerializer, BankSerializer
+from .models import PersonaSoporte, PQR, Bank
 
 # Create your views here.
 
@@ -20,3 +20,12 @@ class PQRListCreate(generics.ListCreateAPIView):
 class PQRUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = PQR.objects.all()
     serializer_class = PQRSerializer
+
+
+class BankListCreate(generics.ListCreateAPIView):
+    queryset = Bank.objects.all()
+    serializer_class = BankSerializer
+
+class BankUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Bank.objects.all()
+    serializer_class = BankSerializer
