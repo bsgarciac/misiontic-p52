@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['id', 'username', 'email']
+
 
 class PersonaSoporteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,7 +21,6 @@ class PQRSerializer(serializers.ModelSerializer):
     class Meta:
         model = PQR
         fields = ['persona_soporte', 'estado', 'comentario', 'created']
-
 
 class BankSerializer(serializers.ModelSerializer):
     users = UserSerializer(many=True)

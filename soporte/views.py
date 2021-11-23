@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework import generics
-from .serializers import PersonaSoporteSerializer, PQRSerializer, BankSerializer
+from rest_framework import views, generics, authentication, permissions, status
+from .serializers import PersonaSoporteSerializer, PQRSerializer, BankSerializer, UserSerializer
 from .models import PersonaSoporte, PQR, Bank
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -29,3 +30,12 @@ class BankListCreate(generics.ListCreateAPIView):
 class BankUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bank.objects.all()
     serializer_class = BankSerializer
+
+
+class UserRetrieve(views.APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        serializer = UserSerializer(request.user) 
+        return Response(data=serializer.data, status=status.HTTP_200_OK)

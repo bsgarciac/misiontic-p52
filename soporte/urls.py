@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PersonaSoporteListCreate, PersonaSoporteUpdateDelete, PQRListCreate, PQRUpdateDelete, BankListCreate, BankUpdateDelete
+from .views import PersonaSoporteListCreate, PersonaSoporteUpdateDelete, PQRListCreate, PQRUpdateDelete, BankListCreate, BankUpdateDelete, UserRetrieve
 
 urlpatterns = [
     path('personas-soporte/', PersonaSoporteListCreate.as_view()),
@@ -7,5 +7,6 @@ urlpatterns = [
     path('pqr/', PQRListCreate.as_view()),
     path('pqr/<pk>/', PQRUpdateDelete.as_view()),
     path('bank/', BankListCreate.as_view()),
-    path('bank/<pk>/', BankUpdateDelete.as_view())
+    path('bank/<pk>/', BankUpdateDelete.as_view()),
+    path('user/', UserRetrieve.as_view())
 ]
