@@ -3,11 +3,12 @@ from .models import PQR, PersonaSoporte, Bank
 from django.contrib.auth.models import User
 
 
-class UserSerializer(serializers.ModelSerializer):
+
+
+class UserCreationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
-
+        fields = '__all__'
 
 class PersonaSoporteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,6 +22,16 @@ class PQRSerializer(serializers.ModelSerializer):
     class Meta:
         model = PQR
         fields = ['persona_soporte', 'estado', 'comentario', 'created']
+
+
+
+
+class UserSerializer(serializers.ModelSerializer):
+    soporte = PersonaSoporteSerializer()
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'soporte']
+
 
 class BankSerializer(serializers.ModelSerializer):
     users = UserSerializer(many=True)

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class PersonaSoporte(models.Model):
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, related_name="soporte")
     nombre = models.CharField(max_length=64)
     edad = models.IntegerField(null=True, blank=True)	
     activo = models.BooleanField(default=True)

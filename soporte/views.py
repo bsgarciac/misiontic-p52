@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from rest_framework import views, generics, authentication, permissions, status
-from .serializers import PersonaSoporteSerializer, PQRSerializer, BankSerializer, UserSerializer
+from .serializers import PersonaSoporteSerializer, PQRSerializer, BankSerializer, UserSerializer, UserCreationSerializer
 from .models import PersonaSoporte, PQR, Bank
 from rest_framework.response import Response
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -39,3 +41,12 @@ class UserRetrieve(views.APIView):
     def get(self, request):
         serializer = UserSerializer(request.user) 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+class UserCreate(views.APIView):
+    def post(self, request):
+        serializer = UserCreationSerializer(data=request.data)
+        if serializer.is_valid():
+            user = User.objects.create_user(username=serializer.validated_data['username'], password=serializer.validated_data['password'])
+            PersonaSoporte.objects.create(user=user, edad=request.data['edad'])
+            return Response(status=status.HTTP_201_CREATED)
